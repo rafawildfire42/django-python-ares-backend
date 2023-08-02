@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "src"
+version = "0.1.0"
+description = "poetry-ares"
+authors = ["rafaelwildfire <rafaelwildfire@gmail.com>"]
+license = "ares-technology"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+djangorestframework = "^3.14.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
