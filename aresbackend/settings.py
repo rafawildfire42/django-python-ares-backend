@@ -73,10 +73,25 @@ WSGI_APPLICATION = 'aresbackend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.mysql",
+#         "NAME": "ecosystemdb",
+#         "USER": "root",
+#         "PASSWORD": "adminmysql123",
+#         "HOST": "127.0.0.1",
+#         "PORT": "3306",
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "arespr47_aresdb",
+        "USER": "arespr47_devrafael",
+        "PASSWORD": "TQ$_LBd8A3E^",
+        "HOST": "aresprojetos.com.br",
+        "PORT": "3306",
     }
 }
 
