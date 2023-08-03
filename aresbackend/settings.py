@@ -39,6 +39,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
 ]
 
 CUSTOM_APPS = [
@@ -55,9 +56,16 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'aresbackend.urls'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3001', 
+    'https://www.aresprojetos.com.br',  
+    'https://aresprojetos.com.br',  
+]
 
 TEMPLATES = [
     {
@@ -74,6 +82,12 @@ TEMPLATES = [
         },
     },
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+}
 
 WSGI_APPLICATION = 'aresbackend.wsgi.application'
 

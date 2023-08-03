@@ -12,6 +12,7 @@ django = "4.1"
 djangorestframework = "^3.14.0"
 python-decouple = "^3.8"
 dj-database-url = "^2.0.0"
+django-cors-headers = "^4.2.0"
 
 
 [build-system]
