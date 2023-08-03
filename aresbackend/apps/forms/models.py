@@ -33,3 +33,7 @@ class BudgetForm(models.Model):
     email = models.EmailField("E-mail", max_length=50)
     service = models.IntegerField("Serviço", choices=SERVICES)
     return_way = models.IntegerField("Forma de retorno", choices=RETURN_WAYS)
+
+    class Meta:
+      verbose_name = "Formulário de orçamento"
+      verbose_name_plural = "Formulários de orçamentos"
