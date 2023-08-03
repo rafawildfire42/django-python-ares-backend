@@ -1,4 +1,9 @@
 .env
+dist/
+build/
 *.pyc
-__pycache__/
-*.cpython-3.11.*
+*.pyo
+*.swp
+*.egg-info
+*.conf
+__pycache__
