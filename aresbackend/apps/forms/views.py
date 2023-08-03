@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from aresbackend.apps.apiconfigs import BaseApiView
-
+import re
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 from .models import BudgetForm
@@ -9,6 +9,22 @@ from .serializers import BudgetFormSerializer
 class BudgetFormApiView(BaseApiView, viewsets.ModelViewSet):
     queryset = BudgetForm.objects.all()
     serializer_class = BudgetFormSerializer
+
+    def remove_punctuation(self, text):
+        return re.sub(r'[^\d]', '', text)
+
+    def create(self, request, *args, **kwargs):
+        cpf = request.data.get('cpf')
+        if cpf:
+            request.data['cpf'] = self.remove_punctuation(cpf)
+
+        phone = request.data.get('phone')
+        if phone:
+            request.data['phone'] = self.remove_punctuation(phone)
+
+        print(request.data)
+
+        return super().create(request, *args, **kwargs)
 
     def destroy(self, request, *args, **kwargs):
         data = {"detail": "Você não possui permissão para deletar esses dados."}

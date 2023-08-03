@@ -62,6 +62,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'aresbackend.urls'
 
 CORS_ALLOWED_ORIGINS = [
+    'http://192.168.3.58:3001',
     'http://localhost:3001', 
     'https://www.aresprojetos.com.br',  
     'https://aresprojetos.com.br',  
