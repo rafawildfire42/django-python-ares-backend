@@ -34,9 +34,9 @@ class BudgetFormApiView(BaseApiView, viewsets.ModelViewSet):
         data = {"detail": "Você não possui permissão para alterar esses dados."}
         return Response(data, status=status.HTTP_401_UNAUTHORIZED)
     
-    def retrieve(self, request, *args, **kwargs):
-        data = {"detail": "Você não possui permissão para visualizar esses dados."}
-        return Response(data, status=status.HTTP_401_UNAUTHORIZED)
+    # def retrieve(self, request, *args, **kwargs):
+    #     data = {"detail": "Você não possui permissão para visualizar esses dados."}
+    #     return Response(data, status=status.HTTP_401_UNAUTHORIZED)
     
     def list(self, request, *args, **kwargs):
         data = {"detail": "Você não possui permissão para visualizar esses dados."}
