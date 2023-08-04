@@ -31,8 +31,8 @@ jobs:
       - name: 🌐 Install project dependencies with Poetry
         run: poetry install
 
-      - name: 🌐 Build the application
-        run: poetry run python manage.py collectstatic --noinput --settings=aresbackend.settings
+      # - name: 🌐 Build the application
+      #   run: poetry run python manage.py collectstatic --noinput --settings=aresbackend.settings
 
       - name: 📂 Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
