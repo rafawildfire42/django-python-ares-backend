@@ -29,7 +29,14 @@ SECRET_KEY = config('SECRET_KEY')
 # DEBUG = config('DEBUG', default=False, cast=bool)
 DEBUG = False
 
-ALLOWED_HOSTS = ['aresprojetos.com.br', '*', 'https://backend.aresprojetos.com.br/', 'https://www.aresprojetos.com.br/']
+ALLOWED_HOSTS = [
+    'aresprojetos.com.br', 
+    '*', 
+    'https://backend.aresprojetos.com.br/', 
+    'http://backend.aresprojetos.com.br/', 
+    'https://www.aresprojetos.com.br/',
+    'http://www.aresprojetos.com.br/',
+]
 
 
 # Application definition

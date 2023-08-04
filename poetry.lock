@@ -89,6 +89,17 @@ files = [
 ]
 
 [[package]]
+name = "flup"
+version = "1.0.3"
+description = "Random assortment of WSGI servers (py3)"
+optional = false
+python-versions = "*"
+files = [
+    {file = "flup-1.0.3-py3-none-any.whl", hash = "sha256:ca9fd78e1cc0431da1236f73fafd1c01db684675b4d369460d5f5c62e6f0b8d6"},
+    {file = "flup-1.0.3.tar.gz", hash = "sha256:5eb09f26eb0751f8380d8ac43d1dfb20e1d42eca0fa45ea9289fa532a79cd159"},
+]
+
+[[package]]
 name = "gunicorn"
 version = "21.2.0"
 description = "WSGI HTTP Server for UNIX"
@@ -212,4 +223,4 @@ brotli = ["Brotli"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "02b4f2755c01693e3ddc7747268303f94bdc7bd3128f574ec99e082ed876ee73"
+content-hash = "b15b5f2a7f31b368fcb4bf183caa48a461ac219b498e26ab0208890331b8eb6f"
