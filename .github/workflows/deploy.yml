@@ -9,6 +9,12 @@ jobs:
   backend-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+    env:  # Definindo variáveis de ambiente para o fluxo de trabalho
+      SECRET_KEY: ${{ secrets.SECRET_KEY }}
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      DEBUG: False
+      # Adicione outras variáveis de ambiente conforme necessário
+
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
@@ -29,9 +35,6 @@ jobs:
 
       - name: 📂 Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: 📂 Create remote 'backend' directory
-        run: lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mkdir backend"
 
       - name: 📂 Deploy via FTP
         run: |
