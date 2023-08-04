@@ -24,12 +24,15 @@ jobs:
       - name: 🌐 Install project dependencies with Poetry
         run: poetry install
 
-      # - name: 🌐 Run migrations
-      #   run: poetry run python manage.py migrate --settings=aresbackend.settings.production
+      - name: 🌐 Build the application
+        run: poetry run python manage.py collectstatic --noinput --settings=aresbackend.settings.production
 
       - name: 📂 Install lftp
         run: sudo apt-get update && sudo apt-get install -y lftp
 
+      - name: 📂 Create remote 'backend' directory
+        run: lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mkdir backend"
+
       - name: 📂 Deploy via FTP
         run: |
-          lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mirror --reverse --verbose --exclude-glob dist backend"
+          lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mirror --reverse --verbose --exclude-glob backend ./dist backend"
