@@ -24,8 +24,8 @@ jobs:
       - name: 🌐 Install project dependencies with Poetry
         run: poetry install
 
-      - name: 🌐 Run migrations
-        run: poetry run python manage.py migrate --settings=aresbackend.settings.production
+      # - name: 🌐 Run migrations
+      #   run: poetry run python manage.py migrate --settings=aresbackend.settings.production
 
       - name: 🚚 Create assets directory (if not exists)
         run: mkdir -p dist/assets
