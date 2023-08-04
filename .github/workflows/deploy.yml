@@ -39,4 +39,4 @@ jobs:
 
       - name: 📂 Deploy via FTP
         run: |
-          lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mirror --reverse --verbose --exclude-glob backend ./staticfiles/admin backend"
+          lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mirror --reverse --verbose --exclude-glob backend backend"
