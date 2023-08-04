@@ -13,7 +13,7 @@ jobs:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       DATABASE_URL: ${{ secrets.DATABASE_URL }}
       DEBUG: False
-      DJANGO_SETTINGS_MODULE: "src.settings.production"
+      DJANGO_SETTINGS_MODULE: "aresbackend.settings"
       # Adicione outras variáveis de ambiente conforme necessário
 
     steps:
