@@ -1,4 +1,4 @@
-name: Deploy to HostGator
+name: 🚀 Deploy backend on push
 
 on:
   push:
@@ -6,34 +6,33 @@ on:
       - main
 
 jobs:
-  deploy:
+  backend-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
 
-      - name: Setup Python
+      - name: 🌐 Setup Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x' # Especifique a versão do Python que você está usando
 
-      - name: Install Poetry
+      - name: 🌐 Install Poetry
         run: curl -sSL https://install.python-poetry.org | python3 -
 
-      - name: Install project dependencies with Poetry
+      - name: 🌐 Install project dependencies with Poetry
         run: poetry install
 
-      - name: Run migrations
+      - name: 🌐 Run migrations
         run: poetry run python manage.py migrate --settings=aresbackend.settings.production
 
-      - name: Collect static files
-        run: poetry run python manage.py collectstatic --noinput --settings=aresbackend.settings.production
+      - name: 🚚 Create assets directory (if not exists)
+        run: mkdir -p dist/assets
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0
-        with:
-          server: ${{ secrets.FTP_HOST }}
-          username: ${{ secrets.FTP_USER }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /backend
+      - name: 📂 Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: 📂 Deploy via FTP
+        run: |
+          lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mirror --reverse --verbose --exclude-glob .htaccess ./dist public_html"
