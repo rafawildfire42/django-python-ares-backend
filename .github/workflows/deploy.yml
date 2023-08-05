@@ -1,4 +1,4 @@
-name: 🚀 Deploy backend on push
+name: Run Django Server on EC2
 
 on:
   push:
@@ -6,37 +6,18 @@ on:
       - main
 
 jobs:
-  backend-deploy:
-    name: 🎉 Deploy
+  deploy:
     runs-on: ubuntu-latest
-    env:  # Definindo variáveis de ambiente para o fluxo de trabalho
-      SECRET_KEY: ${{ secrets.SECRET_KEY }}
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      DEBUG: False
-      DJANGO_SETTINGS_MODULE: "aresbackend.settings"
-      # Adicione outras variáveis de ambiente conforme necessário
 
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: 🌐 Setup Python
-        uses: actions/setup-python@v2
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.5.0
         with:
-          python-version: '3.x' # Especifique a versão do Python que você está usando
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      - name: 🌐 Install Poetry
-        run: curl -sSL https://install.python-poetry.org | python3 -
-
-      - name: 🌐 Install project dependencies with Poetry
-        run: poetry install
-
-      # - name: 🌐 Build the application
-      #   run: poetry run python manage.py collectstatic --noinput --settings=aresbackend.settings
-
-      - name: 📂 Install lftp
-        run: sudo apt-get update && sudo apt-get install -y lftp
-
-      - name: 📂 Deploy via FTP
+      - name: SSH to EC2 and run Django server
         run: |
-          lftp -c "open -u ${{ secrets.ftp_user }},${{ secrets.ftp_password }} ${{ secrets.ftp_host }}; set ssl:verify-certificate no; mirror --reverse --verbose --exclude-glob backend ./ backend"
+          ssh -o StrictHostKeyChecking=no ubuntu@18.191.144.188 'cd /backend/ares-backend && source aresenv/bin/activate && python manage.py runserver 0.0.0.0:8000'
