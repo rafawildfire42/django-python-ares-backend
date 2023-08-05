@@ -11,11 +11,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan YOUR_EC2_PUBLIC_IP >> ~/.ssh/known_hosts
+        env:
+          EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+
       - name: Deploy to EC2
         run: |
-          ssh -i ${{ secrets.EC2_PRIVATE_KEY }} ubuntu@18.191.144.188
+          ssh -i ubuntu@18.191.144.188
           "cd /home/ubuntu/backend/ares-backend &&
-          source /path/to/your/venv/bin/activate && 
+          source /home/ubuntu/aresenv/bin/activate && 
           git pull && 
           poetry install &&
           python manage.py runserver
