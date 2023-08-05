@@ -22,7 +22,7 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ubuntu@18.191.144.188
+          ssh -i /home/ubuntu/key/id_rsa.pem ubuntu@18.191.144.188
           "cd /home/ubuntu/backend/ares-backend &&
           source /home/ubuntu/aresenv/bin/activate && 
           git pull && 
