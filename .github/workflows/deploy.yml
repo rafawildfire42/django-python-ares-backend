@@ -1,5 +1,4 @@
-name: Run Django Server on EC2
-
+name: Deploy to EC2
 on:
   push:
     branches:
@@ -8,17 +7,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
-      - name: Install ssh-action
-        run: |
-          wget https://github.com/appleboy/ssh-action/releases/download/v0.1.4/ssh-action_0.1.4_Linux_x86_64.tar.gz
-          tar -xzf ssh-action_0.1.4_Linux_x86_64.tar.gz
-          sudo mv ssh-action /usr/local/bin/
 
-      - name: SSH to EC2 and run Django server
+      - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@18.191.144.188 'cd /backend/ares-backend && source aresenv/bin/activate && python manage.py runserver 0.0.0.0:8000'
+          ssh -i /path/to/your/private_key.pem ubuntu@18.191.144.188
+          "cd /home/ubuntu/backend/ares-backend &&
+          source /path/to/your/venv/bin/activate && 
+          git pull && 
+          poetry install &&
+          python manage.py runserver
