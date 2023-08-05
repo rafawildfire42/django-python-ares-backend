@@ -24,7 +24,7 @@ jobs:
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << EOF
             cd /home/ubuntu/backend/ares-backend
-            source /home/ubuntu/aresenv/bin/activate
+            source /home/ubuntu/backend/aresenv/bin/activate
             git pull
             poetry install
             python manage.py runserver
