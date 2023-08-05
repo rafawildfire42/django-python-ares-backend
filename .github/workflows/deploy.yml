@@ -12,11 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Configure SSH
-        uses: webfactory/ssh-agent@v1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        
+      - name: Install ssh-action
+        run: |
+          wget https://github.com/appleboy/ssh-action/releases/download/v0.1.4/ssh-action_0.1.4_Linux_x86_64.tar.gz
+          tar -xzf ssh-action_0.1.4_Linux_x86_64.tar.gz
+          sudo mv ssh-action /usr/local/bin/
 
       - name: SSH to EC2 and run Django server
         run: |
