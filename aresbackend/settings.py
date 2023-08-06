@@ -78,6 +78,7 @@ ROOT_URLCONF = 'aresbackend.urls'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3001',
     'https://www.aresprojetos.com.br',
+    'http://www.aresprojetos.com.br',
     'https://backend.aresprojetos.com.br',
 ]
 
