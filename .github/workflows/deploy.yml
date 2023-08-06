@@ -30,7 +30,12 @@ jobs:
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
             export DEBUG=False &&
             export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
-            sudo systemctl stop gunicorn &&
+
+            # Check if gunicorn is running and stop it if it is
+            if sudo systemctl is-active gunicorn.service >/dev/null 2>&1; then
+              sudo systemctl stop gunicorn
+            fi
+
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
             nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
           EOF
