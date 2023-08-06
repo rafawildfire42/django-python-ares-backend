@@ -25,7 +25,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
-            git pull origin main &&
+            git pull &&
             poetry install &&
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
             export DEBUG=False &&
@@ -33,9 +33,16 @@ jobs:
 
             # Check if gunicorn is running and stop it if it is
             if sudo systemctl is-active gunicorn.service >/dev/null 2>&1; then
+              echo "Stopping gunicorn..."
               sudo systemctl stop gunicorn
+              echo "Gunicorn stopped."
+            else
+              echo "Gunicorn is not running or not found."
             fi
 
+            # Start gunicorn
+            echo "Starting gunicorn..."
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
             nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
+            echo "Gunicorn started."
           EOF
