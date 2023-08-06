@@ -43,6 +43,6 @@ jobs:
             # Start gunicorn
             echo "Starting gunicorn..."
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
-            nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
+            gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
             echo "Gunicorn started."
           EOF
