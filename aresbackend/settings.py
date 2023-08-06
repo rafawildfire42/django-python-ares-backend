@@ -80,6 +80,10 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.aresprojetos.com.br',
 ]
 
+CORS_ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+CORS_ALLOWED_HEADERS = ['Authorization', 'Content-Type']
+CORS_ALLOW_CREDENTIALS = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
