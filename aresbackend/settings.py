@@ -81,6 +81,8 @@ CORS_ALLOWED_ORIGINS = [
     'https://backend.aresprojetos.com.br',  
 ]
 
+CORS_ALLOW_ALL_ORIGINS = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
