@@ -8,10 +8,10 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: 📥 Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH
+      - name: 🔑 Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -20,16 +20,29 @@ jobs:
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
 
-      - name: Deploy to EC2
+      - name: 🚀 Deploy to EC2
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
             git pull &&
-            poetry install
+            poetry install &&
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
             export DEBUG=False &&
             export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
+
+            # Check if gunicorn is running and stop it if it is
+            if sudo systemctl is-active gunicorn.service >/dev/null 2>&1; then
+              echo "Stopping gunicorn..."
+              sudo systemctl stop gunicorn
+              echo "Gunicorn stopped."
+            else
+              echo "Gunicorn is not running or not found."
+            fi
+
+            # Start gunicorn
+            echo "Starting gunicorn..."
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
-            gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000
+            nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
+            echo "Gunicorn started."
           EOF
