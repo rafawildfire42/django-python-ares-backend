@@ -30,5 +30,6 @@ jobs:
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
             export DEBUG=False &&
             export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
+            python manage.py collectstatic &&
             gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000
           EOF
