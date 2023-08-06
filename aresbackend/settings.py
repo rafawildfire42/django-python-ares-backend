@@ -83,28 +83,14 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.backend.aresprojetos.com.br',  
 ]
 
-CORS_ALLOW_METHODS = [
-    'GET',
-    'POST',
-    'PUT',
-    'PATCH',
-    'DELETE',
-    'OPTIONS'
-]
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
-
-
-CORS_ALLOW_ALL_ORIGINS = True
+4
+CORS_ORIGIN_WHITELIST = (
+    'https://www.aresprojetos.com.br',  
+    'https://aresprojetos.com.br',  
+    'https://backend.aresprojetos.com.br',  
+    'http://backend.aresprojetos.com.br',  
+    'https://www.backend.aresprojetos.com.br',
+)
 
 TEMPLATES = [
     {
