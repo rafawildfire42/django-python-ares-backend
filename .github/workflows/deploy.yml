@@ -26,10 +26,28 @@ jobs:
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
             git pull &&
-            poetry install
+            poetry install &&
+            sudo systemctl restart gunicorn
           EOF
 
-# export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
-# export DEBUG=False &&
-# export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
-# python manage.py runserver 0.0.0.0:8000
+      - name: Configure Nginx
+        run: |
+          sudo tee /etc/nginx/sites-available/aresbackend << EOF
+          server {
+              listen 8000;
+              server_name 18.191.144.188; 
+
+              location / {
+                  proxy_pass http://unix:/path/to/your/django/app/mydjangoapp.sock;
+                  proxy_set_header Host $host;
+                  proxy_set_header X-Real-IP $remote_addr;
+              }
+          }
+          EOF
+          sudo ln -s /etc/nginx/sites-available/mydjangoapp /etc/nginx/sites-enabled
+          sudo nginx -t  # Testa a configuração do Nginx antes de recarregar
+          sudo systemctl reload nginx
+
+      - name: Restart Gunicorn
+        run: |
+          sudo systemctl restart gunicorn
