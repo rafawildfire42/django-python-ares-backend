@@ -31,6 +31,5 @@ jobs:
             export DEBUG=False &&
             export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
-            sudo systemctl restart gunicorn &&
             gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000
           EOF
