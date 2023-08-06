@@ -30,9 +30,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '18.191.144.188',
-    'http://18.191.144.188/',
-    'http://18.191.144.188:8000/',
+    '*'
     # 'aresprojetos.com.br', 
     # 'backend.aresprojetos.com.br/', 
     # 'backend.aresprojetos.com.br/*', 
