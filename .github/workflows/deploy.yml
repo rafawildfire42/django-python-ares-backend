@@ -34,7 +34,8 @@ jobs:
             
             # Check if the server on port 8000 is not running
             if ! nc -z localhost 8000; then
-              gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000
+              nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
+              sleep 5  # Wait for Gunicorn to start (you can adjust the duration as needed)
             else
               echo "Server on port 8000 is already running. Skipping Gunicorn."
             fi
