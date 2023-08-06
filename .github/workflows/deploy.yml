@@ -26,9 +26,10 @@ jobs:
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
             git pull &&
-            poetry install &&
-            export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
-            export DEBUG=False &&
-            export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
-            python manage.py runserver 0.0.0.0:8000
+            poetry install
           EOF
+
+# export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
+# export DEBUG=False &&
+# export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
+# python manage.py runserver 0.0.0.0:8000
