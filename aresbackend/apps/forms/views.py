@@ -13,21 +13,18 @@ class BudgetFormApiView(viewsets.ModelViewSet):
         return re.sub(r'[^\d]', '', text)
 
     def create(self, request, *args, **kwargs):
-        # cpf = request.data.get('cpf')
-        # if cpf:
-        #     request.data['cpf'] = self.remove_punctuation(cpf)
+        cpf = request.data.get('cpf')
+        if cpf:
+            request.data['cpf'] = self.remove_punctuation(cpf)
 
-        # phone = request.data.get('phone')
-        # if phone:
-        #     request.data['phone'] = self.remove_punctuation(phone)
+        phone = request.data.get('phone')
+        if phone:
+            request.data['phone'] = self.remove_punctuation(phone)
 
-        # print(request.data)
+        print(request.data)
 
-        # return super().create(request, *args, **kwargs)
+        return super().create(request, *args, **kwargs)
     
-        data = {"detail": "ta indo ok 12."}
-        return Response(data, status=status.HTTP_200_OK)
-
     def destroy(self, request, *args, **kwargs):
         data = {"detail": "Você não possui permissão para deletar esses dados."}
         return Response(data, status=status.HTTP_401_UNAUTHORIZED)
