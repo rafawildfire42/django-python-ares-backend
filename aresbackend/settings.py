@@ -30,7 +30,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    '*',
+    '18.191.144.188',
+    'http://18.191.144.188/',
+    'http://18.191.144.188:8000/',
     # 'aresprojetos.com.br', 
     # 'backend.aresprojetos.com.br/', 
     # 'backend.aresprojetos.com.br/*', 
@@ -80,14 +82,6 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.aresprojetos.com.br',
     'https://backend.aresprojetos.com.br',
 ]
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:3001',
-    'https://www.aresprojetos.com.br',
-    'https://backend.aresprojetos.com.br',
-)
-CORS_ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
-CORS_ALLOWED_HEADERS = ['Authorization', 'Content-Type', 'Access-Control-Allow-Origin']
-CORS_ALLOW_CREDENTIALS = True
 
 TEMPLATES = [
     {
