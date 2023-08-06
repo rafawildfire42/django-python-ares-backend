@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: 🚀 Deploy to EC2
 on:
   push:
     branches:
@@ -8,10 +8,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+
+      - name: 📥 Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH
+      - name: 🔑 Set up SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
@@ -20,17 +21,27 @@ jobs:
         env:
           EC2_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
 
-      - name: Deploy to EC2
+      - name: 🌐 Accessing EC2
         run: |
           ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
             source /home/ubuntu/backend/aresenv/bin/activate &&
-            cd /home/ubuntu/backend/ares-backend &&
-            git pull &&
-            poetry install &&
-            export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
-            export DEBUG=False &&
-            export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
-            sudo systemctl stop gunicorn &&
-            DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
-            nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
+            cd /home/ubuntu/backend/ares-backend
+          EOF
+
+      - name: 🔄 Updating Project on EC2
+        run: |
+          git pull &&
+          poetry install
+
+      - name: 🌲 Setting Environment Variables
+        run: |
+          export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
+          export DEBUG=False &&
+          export DATABASE_URL='${{ secrets.DATABASE_URL }}'
+
+      - name: 🚦 Running Green Unicorn
+        run: |
+          sudo systemctl stop gunicorn &&
+          DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
+          nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
           EOF
