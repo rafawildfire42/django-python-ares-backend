@@ -25,7 +25,7 @@ class BudgetFormApiView(viewsets.ModelViewSet):
 
         # return super().create(request, *args, **kwargs)
     
-        data = {"detail": "ta indo ok 123."}
+        data = {"detail": "ta indo ok 12."}
         return Response(data, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
