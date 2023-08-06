@@ -28,7 +28,7 @@ jobs:
             git pull &&
             poetry install
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
-            export DEBUG=False &&
+            export DEBUG=True &&
             export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
             gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000
