@@ -76,12 +76,32 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'aresbackend.urls'
 
 CORS_ALLOWED_ORIGINS = [
-    'https://www.aresprojetos.com.br/',  
     'https://www.aresprojetos.com.br',  
     'https://aresprojetos.com.br',  
     'https://backend.aresprojetos.com.br',  
     'https://www.backend.aresprojetos.com.br',  
 ]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS'
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 
