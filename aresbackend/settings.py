@@ -83,14 +83,10 @@ CORS_ALLOWED_ORIGINS = [
     'https://www.backend.aresprojetos.com.br',  
 ]
 
-4
-CORS_ORIGIN_WHITELIST = (
-    'https://www.aresprojetos.com.br',  
-    'https://aresprojetos.com.br',  
-    'https://backend.aresprojetos.com.br',  
-    'http://backend.aresprojetos.com.br',  
-    'https://www.backend.aresprojetos.com.br',
-)
+CORS_ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
+CORS_ALLOWED_HEADERS = ['Authorization', 'Content-Type']
+CORS_ALLOW_CREDENTIALS = True
+
 
 TEMPLATES = [
     {
