@@ -22,12 +22,16 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
-            # Copy the SSL certificate and private key to the appropriate directory
-            mkdir -p /home/ubuntu/backend/certificates
-            echo "${{ secrets.SSL_PRIVATE_KEY }}" > /home/ubuntu/backend/certificates/privkey.pem
-            echo "${{ secrets.SSL_CERTIFICATE }}" > /home/ubuntu/backend/certificates/fullchain.pem
+          # Copy the SSL certificate and private key to the appropriate directory
+          mkdir -p /tmp/certificates
+          echo "${{ secrets.SSL_PRIVATE_KEY }}" > /tmp/certificates/privkey.pem
+          echo "${{ secrets.SSL_CERTIFICATE }}" > /tmp/certificates/fullchain.pem
 
+          # Transfer the SSL certificate and private key to the EC2 instance
+          scp -i ~/.ssh/id_rsa /tmp/certificates/privkey.pem /tmp/certificates/fullchain.pem ubuntu@18.191.144.188:/home/ubuntu/backend/certificates/
+
+          # Deploy the Django application and configure SSL
+          ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
             git pull &&
