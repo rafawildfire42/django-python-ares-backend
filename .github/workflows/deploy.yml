@@ -34,14 +34,14 @@ jobs:
             python manage.py makemigrations &&
             python manage.py migrate &&
             
-            # Check if the server on port 80 is not running
-            if ! nc -z localhost 80; then
-              nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:80 > gunicorn.log 2>&1
+            # Check if the server on port 8000 is not running
+            if ! nc -z localhost 8000; then
+              nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1
             else
-              echo "Server on port 80 is already running. Restarting Django server..."
+              echo "Server on port 8000 is already running. Restarting Django server..."
               # Restart Django server
               pkill -f "gunicorn aresbackend.wsgi:application"
-              nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:80 > gunicorn.log 2>&1 &
+              nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
               echo "Django server restarted."
             fi
           EOF
