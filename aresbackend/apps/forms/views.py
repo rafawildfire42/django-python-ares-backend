@@ -21,8 +21,6 @@ class BudgetFormApiView(viewsets.ModelViewSet):
         if phone:
             request.data['phone'] = self.remove_punctuation(phone)
 
-        print(request.data)
-
         return super().create(request, *args, **kwargs)
     
     def destroy(self, request, *args, **kwargs):
@@ -38,5 +36,5 @@ class BudgetFormApiView(viewsets.ModelViewSet):
     #     return Response(data, status=status.HTTP_401_UNAUTHORIZED)
     
     def list(self, request, *args, **kwargs):
-        data = {"detail": "Você não possui permissão para visualizar esses dados. 2142 43 teste 4  tstse"}
+        data = {"detail": "Você não possui permissão para visualizar esses dados."}
         return Response(data, status=status.HTTP_401_UNAUTHORIZED)
