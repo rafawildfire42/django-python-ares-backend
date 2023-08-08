@@ -17,7 +17,7 @@ jobs:
       - name: Set up SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "$EC2_PRIVATE_KEY" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan 18.191.144.188 >> ~/.ssh/known_hosts
         env:
@@ -25,27 +25,25 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
+          ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 '
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
             git pull &&
             poetry install &&
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
             export DEBUG=False &&
-            export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
+            export DATABASE_URL=${{ secrets.DATABASE_URL }} &&
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
             
-            # Check if the server on port 8000 is not running
             if ! nc -z localhost 8000; then
               nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1
             else
               echo "Server on port 8000 is already running. Restarting Django server..."
-              # Restart Django server
               pkill -f "gunicorn aresbackend.wsgi:application"
               nohup gunicorn aresbackend.wsgi:application --bind 0.0.0.0:8000 > gunicorn.log 2>&1 &
               echo "Django server restarted."
             fi
-          EOF
+          '
 
 # python manage.py makemigrations &&
 # python manage.py migrate &&
