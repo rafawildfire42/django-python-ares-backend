@@ -30,6 +30,7 @@ jobs:
             export SECRET_KEY=${{ secrets.SECRET_KEY }} &&
             export DEBUG=False &&
             export DATABASE_URL='${{ secrets.DATABASE_URL }}' &&
+            DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
             
             # Check if the server on port 8000 is not running
             if ! nc -z localhost 8000; then
@@ -42,3 +43,6 @@ jobs:
               echo "Django server restarted."
             fi
           EOF
+
+# python manage.py makemigrations &&
+# python manage.py migrate &&
