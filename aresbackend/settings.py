@@ -27,20 +27,14 @@ SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = config('DEBUG', default=False, cast=bool)
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    '*'
-    # 'aresprojetos.com.br', 
-    # 'backend.aresprojetos.com.br/', 
-    # 'backend.aresprojetos.com.br/*', 
-    # 'https://backend.aresprojetos.com.br/*', 
-    # 'https://backend.aresprojetos.com.br/', 
-    # 'http://backend.aresprojetos.com.br/*',
-    # 'http://backend.aresprojetos.com.br/',
-    # 'https://www.aresprojetos.com.br/',
-    # 'http://www.aresprojetos.com.br/',
+    '18.191.144.188',
 ]
+
+if DEBUG:
+    ALLOWED_HOSTS.append('localhost')
 
 
 # Application definition
