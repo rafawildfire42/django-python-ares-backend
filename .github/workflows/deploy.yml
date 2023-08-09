@@ -40,6 +40,3 @@ jobs:
               echo "Django server restarted."
             fi
           EOF
-
-# python manage.py makemigrations &&
-# python manage.py migrate &&
