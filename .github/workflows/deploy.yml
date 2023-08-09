@@ -25,7 +25,7 @@ jobs:
           ssh -i ~/.ssh/id_rsa ubuntu@18.191.144.188 'bash -s' << \EOF
             source /home/ubuntu/backend/aresenv/bin/activate &&
             cd /home/ubuntu/backend/ares-backend &&
-            git pull &&
+            sudo git pull &&
             poetry install &&
             DJANGO_DEPLOY=yes python manage.py collectstatic --noinput &&
             
